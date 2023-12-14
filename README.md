@@ -7,8 +7,8 @@ Project contains examples of using [Selenide-appium](https://selenide.org/) to c
 * Make sure you have appium server running (On default host and port - `127.0.0.1:4723`)
 * Your Emulator/Real Device is opened/connected. To check you can run `adb devices -l` in your Terminal from `%ANDROID_HOME%/platform-tools`. If your device appears in the list it means you can run tests on it.
     
-    >[!Note]    
-    Now tests are configured to run on my personal mobile device where Workiz app is already installed. To reconfigure that you should add your device/app capabilities to `AndroidDriverProvider`. You can find info about needed capabilities in [Appium docs](https://appium.io/docs/en/2.2/guides/caps/).
+>[!NOTE]    
+>Now tests are configured to run on my personal mobile device where Workiz app is already installed. To reconfigure that you should add your device/app capabilities to `AndroidDriverProvider`. You can find info about needed capabilities in [Appium docs](https://appium.io/docs/en/2.2/guides/caps/).
 
 
 * Run `mvn clean test`
@@ -39,13 +39,13 @@ I didn't use PageFactory because with Selenide you can just define Selenide elem
 
 ### What can be improved
 
-Tests are written only for android because I don't own a Mac, I could've used BrowserStack or LambdaTest but their free accounts don't allow App Automation.
-Despite that tests are made with possibility of Ios tests in mind. To implement tests for Ios App you should just add needed capabilities to `IosDriverProvider`, add Ios selectors to all pages using Selenide `CombinedBy` like here:
+Tests are written only for Android, because I don't own a Mac, I could've used BrowserStack or LambdaTest but their free accounts don't allow App Automation.
+Despite that tests are made with possibility of iOS tests in mind. To implement tests for iOS App you should just add needed capabilities to `IosDriverProvider`, add iOS selectors to all pages using Selenide `CombinedBy` like here:
 ```java
     SelenideAppiumElement menu = $(CombinedBy.android(accessibilityId("menu_burger_home"))
         .ios(accessibilityId("ios_menu")));
 ```
-And if business logic of ios app is the same as in android app - you can just run tests specifying the platform:
+And if business logic of iOS app is the same as in Android app - you can just run tests specifying the platform:
 `mvn clean -Dplatform=ios test`
 
 
