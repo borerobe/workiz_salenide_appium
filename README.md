@@ -1,4 +1,4 @@
-# Selenide-appium mobile tests example for [Workiz app](https://play.google.com/store/apps/details?id=com.workiz&hl=en&pli=1)
+# Selenide-appium mobile tests example for [Workiz app](https://www.workiz.com/features/mobile-app/)
 
 Project contains examples of using [Selenide-appium](https://selenide.org/) to create simple and concise tests using Page Object Model for Workiz Android App version 3.371. 
 
@@ -23,13 +23,13 @@ Project contains examples of using [Selenide-appium](https://selenide.org/) to c
 
 ![workiztest](images/workiztest.png)
 
-It has a `@BeforeAll setUp()` where appium Mobile driver is created, `@BeforeEach luanchApp()` where the app is launched or activated, tests and `@AfterEach closeApp()` which closes app after each test.
+It has a `@BeforeAll setUp()` where appium Mobile driver is created, `@BeforeEach luanchApp()` where the app is launched or activated, test methods and `@AfterEach closeApp()` which closes app after each test.
 
 #### Then we have `providers` folder containing `DriverProvider` classes.
 
 ![providers folder](images/providers.png)
 
-You can add your own driver provider, for example for BrowserStack or LambdaTest. Then you can just pass your driver provider's class name to selenide in code - `Configuration.browser = YourProvider.class.getName();` or in `selenide.properties` - `selenide.browser = providers.YourProvider` or even as a maven argument - `mvn clean test -Dselenide.browser = providers.YourProvider`
+You can add your own driver provider, for example for BrowserStack or LambdaTest. Then you can just pass your driver provider's class name to selenide in code - `Configuration.browser = YourProvider.class.getName();` or in `selenide.properties` - `selenide.browser = providers.YourProvider` or even as a maven argument - `mvn clean test -Dselenide.browser = providers.YourProvider`. 
 
 #### We also have `pages` folder which contains Page Objects. 
 
@@ -40,7 +40,7 @@ I didn't use PageFactory because with Selenide you can just define Selenide elem
 ### What can be improved
 
 Tests are written only for Android, because I don't own a Mac, I could've used BrowserStack or LambdaTest but their free accounts don't allow App Automation.
-Despite that tests are made with possibility of iOS tests in mind. To implement tests for iOS App you should just add needed capabilities to `IosDriverProvider`, add iOS selectors to all pages using Selenide `CombinedBy` like here:
+Despite that, tests are made with possibility of iOS tests in mind. To implement tests for iOS App you should just add needed capabilities to `IosDriverProvider`, add iOS selectors to all pages using Selenide `CombinedBy` like here:
 ```java
     SelenideAppiumElement menu = $(CombinedBy.android(accessibilityId("menu_burger_home"))
         .ios(accessibilityId("ios_menu")));
