@@ -49,7 +49,6 @@ public class WorkizTest {
     }
 
     @Test
-    @Disabled
     void checkJobFilterOnJobsPage() {
         MainPage main = new MainPage();
 
@@ -60,21 +59,22 @@ public class WorkizTest {
     }
 
     @Test
-    @Disabled
     void createNewJobTest() {
 
         MainPage main = new MainPage();
 
         NewJobPage newJobPage = main.openMenu().openJobs().newJob();
-        newJobPage.selectClient("Sample Client")
+        JobPage jobPage = newJobPage.selectClient("Sample Client")
                 .selectJobType("Example job type")
                 .selectAdSource("Google")
                 .addJobDescription("New testing job")
                 .createJob();
+        jobPage.shouldHaveStatus(SUBMITTED)
+                .shouldHaveClient("Sample Client")
+                .shouldHaveDetails("Example job type", "Google", "New testing job");
     }
 
     @Test
-    @Disabled
     void assignJobTest() {
         MainPage main = new MainPage();
 
@@ -85,7 +85,6 @@ public class WorkizTest {
     }
 
     @Test
-    @Disabled
     void changeStatusWithoutAssigningTechnician() {
         MainPage main = new MainPage();
 
@@ -99,7 +98,6 @@ public class WorkizTest {
 
     @ParameterizedTest
     @EnumSource
-    @Disabled
     void changeStatus(JobStatus status) {
         MainPage main = new MainPage();
 

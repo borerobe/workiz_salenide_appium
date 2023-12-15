@@ -4,6 +4,9 @@ import com.codeborne.selenide.appium.AppiumScrollOptions;
 import com.codeborne.selenide.appium.SelenideAppiumElement;
 import constants.JobStatus;
 
+import java.time.Duration;
+
+import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.appium.AppiumSelectors.byText;
 import static com.codeborne.selenide.appium.SelenideAppium.$;
@@ -15,7 +18,15 @@ public class JobPage {
 
     SelenideAppiumElement status = $(accessibilityId("job_status_value"));
 
+    SelenideAppiumElement client = $(accessibilityId("job_client_value"));
+
+    SelenideAppiumElement details = $(accessibilityId("job_details"));
+
     SelenideAppiumElement sendJob = $(accessibilityId("menu_send_single_job"));
+
+    public JobPage(){
+        client.shouldBe(visible, Duration.ofSeconds(6));
+    }
 
     public JobPage assignTechnician() {
         assignTechnician.scrollTo().shouldBe(visible).click();
@@ -87,6 +98,30 @@ public class JobPage {
     public JobPage mustAssignTechnicianBannerIsPresent() {
         $(byText("Must assign technician to perform this action")).shouldBe(visible);
         $(accessibilityId("close")).shouldBe(visible).click();
+        return this;
+    }
+
+    public JobPage shouldHaveClient(String clientName) {
+        client.scrollTo().$(byText(clientName)).shouldBe(visible);
+
+        return this;
+    }
+
+
+    public JobPage shouldHaveDetails(String jobType, String adSource, String description) {
+        details.scrollTo().shouldBe(visible).click();
+
+        $(byText("Edit Job Details")).shouldBe(visible);
+        $(byText(jobType)).shouldBe(visible);
+        $(byText(adSource)).shouldBe(visible);
+        $(byText(description)).shouldBe(visible);
+
+        $(accessibilityId("menu_cross")).click();
+
+        details.shouldBe(visible);
+        status.scroll(AppiumScrollOptions.up());
+
+
         return this;
     }
 }
